@@ -54,8 +54,9 @@ class RegistryHive:
         self.version = self.header.Minor
         self.filename = self.header.FileName.rstrip("\x00")
 
-        self.dirty = xor32_crc(data[:508]) == self.header.CheckSum
-        if self.dirty:
+        checksum_valid = xor32_crc(data[:508]) == self.header.CheckSum
+        self.dirty = not checksum_valid or self.header.Sequence1 != self.header.Sequence2
+        if not checksum_valid:
             log.warning(
                 "Checksum failed, the %r hive is dirty, recovery needed, "
                 "may not be able to read keys and values properly",
@@ -621,5 +622,10 @@ def xor32_crc(data: bytes) -> int:
     crc = 0
     for ii in c_regf.uint32[len(data) // 4](data):
         crc ^= ii
+
+    if crc == 0xFFFFFFFF:
+        crc = 0xFFFFFFFE
+    elif crc == 0:
+        crc = 1
 
     return crc

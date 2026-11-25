@@ -41,6 +41,38 @@ tox
 For a more elaborate explanation on how to build and test the project, please see [the
 documentation](https://docs.dissect.tools/en/latest/contributing/tooling.html).
 
+## Transaction log recovery
+
+`recover_hive` applies modern `HvLE` transaction logs into an independent in-memory view. Caller-owned streams are
+only read; they are never written to or closed. The recovery object is published only after the whole selected
+sequence chain has been validated.
+
+```python
+from dissect.regf import Evidence, recover_hive
+
+with open("NTUSER.DAT", "rb") as hive, open("NTUSER.DAT.LOG1", "rb") as log1, open("NTUSER.DAT.LOG2", "rb") as log2:
+    result = recover_hive(
+        hive,
+        [Evidence("NTUSER.DAT.LOG1", log1), Evidence("NTUSER.DAT.LOG2", log2)],
+        hive_name="NTUSER.DAT",
+    )
+
+print(result.status)
+print(result.report.to_dict())
+if result.recovered and result.recovered.hive:
+    root = result.recovered.hive.root()
+```
+
+The report separates:
+
+* recovery status (`clean`, `recovered`, `recovered_partial`, `failed`, `unsupported`);
+* the selected sequence chain, log pairing checks, hashes, dirty-page ranges and overlaps;
+* post-replay structural errors, cell-reference cycles and safe readable ranges;
+* SHA-256 of every input before and after recovery;
+* byte provenance for the recovered buffer, including the log entry and sequence that supplied each span.
+
+Old-format `DIRT` logs are reported as `unsupported`; they are never fed through the modern `HvLE` parser.
+
 ## Contributing
 
 The Dissect project encourages any contribution to the codebase. To make your contribution fit into the project, please
