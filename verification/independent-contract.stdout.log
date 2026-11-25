@@ -1,0 +1,228 @@
+{
+  "source": "Submitted synthetic binary fixtures; independent mutation and contract assertions, source untouched",
+  "results": [
+    {
+      "case": "normal",
+      "status": "PASS",
+      "observed": {
+        "status": "recovered",
+        "published": true,
+        "selected": [
+          12,
+          13,
+          14
+        ],
+        "paired": [
+          true,
+          true
+        ],
+        "pairing_notes": [
+          [],
+          []
+        ],
+        "log_warnings": [
+          [],
+          []
+        ],
+        "structure_trustworthy": true
+      }
+    },
+    {
+      "case": "short1",
+      "status": "PASS",
+      "observed": {
+        "status": "recovered",
+        "published": true,
+        "selected": [
+          12,
+          13,
+          14
+        ],
+        "paired": [
+          true,
+          true
+        ],
+        "pairing_notes": [
+          [],
+          []
+        ],
+        "log_warnings": [
+          [],
+          []
+        ],
+        "structure_trustworthy": true
+      }
+    },
+    {
+      "case": "short7",
+      "status": "PASS",
+      "observed": {
+        "status": "recovered",
+        "published": true,
+        "selected": [
+          12,
+          13,
+          14
+        ],
+        "paired": [
+          true,
+          true
+        ],
+        "pairing_notes": [
+          [],
+          []
+        ],
+        "log_warnings": [
+          [],
+          []
+        ],
+        "structure_trustworthy": true
+      }
+    },
+    {
+      "case": "conflict",
+      "status": "PASS",
+      "observed": {
+        "status": "failed",
+        "published": false,
+        "selected": [],
+        "paired": [
+          true,
+          true
+        ],
+        "pairing_notes": [
+          [],
+          []
+        ],
+        "log_warnings": [
+          [],
+          []
+        ],
+        "structure_trustworthy": null
+      }
+    },
+    {
+      "case": "missing",
+      "status": "PASS",
+      "observed": {
+        "status": "failed",
+        "published": false,
+        "selected": [],
+        "paired": [
+          true
+        ],
+        "pairing_notes": [
+          []
+        ],
+        "log_warnings": [
+          []
+        ],
+        "structure_trustworthy": null
+      }
+    },
+    {
+      "case": "old",
+      "status": "PASS",
+      "observed": {
+        "status": "unsupported",
+        "published": false,
+        "selected": [],
+        "paired": [
+          null,
+          null
+        ],
+        "pairing_notes": [
+          [],
+          []
+        ],
+        "log_warnings": [
+          [],
+          []
+        ],
+        "structure_trustworthy": null
+      }
+    },
+    {
+      "case": "cycle",
+      "status": "PASS",
+      "observed": {
+        "status": "recovered",
+        "published": true,
+        "selected": [
+          12
+        ],
+        "paired": [
+          true
+        ],
+        "pairing_notes": [
+          []
+        ],
+        "log_warnings": [
+          []
+        ],
+        "structure_trustworthy": false
+      }
+    },
+    {
+      "case": "trailing",
+      "status": "PASS",
+      "observed": {
+        "status": "recovered_partial",
+        "published": true,
+        "selected": [
+          12,
+          13,
+          14
+        ],
+        "paired": [
+          true,
+          true
+        ],
+        "pairing_notes": [
+          [],
+          []
+        ],
+        "log_warnings": [
+          [],
+          []
+        ],
+        "structure_trustworthy": true
+      }
+    },
+    {
+      "case": "truncated",
+      "status": "PASS",
+      "observed": {
+        "status": "recovered_partial",
+        "published": true,
+        "selected": [
+          12
+        ],
+        "paired": [
+          true
+        ],
+        "pairing_notes": [
+          []
+        ],
+        "log_warnings": [
+          []
+        ],
+        "structure_trustworthy": true
+      }
+    },
+    {
+      "case": "foreign_name",
+      "status": "FAIL",
+      "exception": "AssertionError",
+      "detail": "{'status': 'recovered', 'published': True, 'selected': [12, 13, 14], 'paired': [True, True], 'pairing_notes': [[\"file name mismatch ('SOFTWARE' != 'NTUSER.DAT')\"], [\"file name mismatch ('SOFTWARE' != 'NTUSER.DAT')\"]], 'log_warnings': [[], []], 'structure_trustworthy': True}"
+    },
+    {
+      "case": "invalid_header_checksum",
+      "status": "FAIL",
+      "exception": "AssertionError",
+      "detail": "{'status': 'recovered', 'published': True, 'selected': [12, 13, 14], 'paired': [True, True], 'pairing_notes': [[], []], 'log_warnings': [['log base block checksum is invalid'], ['log base block checksum is invalid']], 'structure_trustworthy': True}"
+    }
+  ],
+  "passed": 9,
+  "failed": 2
+}

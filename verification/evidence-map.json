@@ -1,0 +1,113 @@
+{
+  "frozen_commit": "b15bf7b4e49f902fba5b23da10165bb49817708f",
+  "native_sha256": "32fa05ccef61d4d6313bc2c210ca255fce762309a83977287f7f3f671f7d8b9f",
+  "observable_actions": [
+    {
+      "line": 75,
+      "command": "python --version; python -c \"import dissect.cstruct, dissect.util; print('deps ok', dissect.cstruct.__version__ if hasattr(dissect.cstruct,'__version__') else '')\"; python -m pytest --version"
+    },
+    {
+      "line": 361,
+      "command": "python tests\\_data\\recovery\\build_fixtures.py; python -m pytest tests/test_recovery.py -q"
+    },
+    {
+      "line": 372,
+      "command": "python -m pytest tests/test_recovery.py -q"
+    },
+    {
+      "line": 379,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 380,
+      "command": "python -m ruff check dissect tests/test_recovery.py tests/_data/recovery/build_fixtures.py 2>&1 | Select-Object -First 120"
+    },
+    {
+      "line": 386,
+      "command": "python -m pip install -q ruff==0.13.1 2>&1 | Select-Object -Last 5; python -m ruff check dissect tests/test_recovery.py tests/_data/recovery/build_fixtures.py 2>&1 | Select-Object -First 160"
+    },
+    {
+      "line": 411,
+      "command": "$files=@('dissect/regf/hive_format.py','dissect/regf/structure.py','dissect/regf/recovery.py','dissect/regf/__init__.py','tests/test_recovery.py','tests/_data/recovery/build_fixtures.py'); foreach($f in $files){ $i=0; Get-Content $f | ForEach-Object { $i++; if($_.Length -gt 120){ \"$f`:$i $($_.Length)\" } } }"
+    },
+    {
+      "line": 477,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 490,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 509,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 544,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 584,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 600,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 634,
+      "command": "@'\nimport ast\nfrom pathlib import Path\nfiles=[Path('dissect/regf/hive_format.py'),Path('dissect/regf/structure.py'),Path('dissect/regf/recovery.py'),Path('examples/recover_hive.py'),Path('tests/test_recovery.py'),Path('tests/_data/recovery/build_fixtures.py')]\nfor p in files:\n    tree=ast.parse(p.read_text())\n    imported=[]\n    for n in ast.walk(tree):\n        if isinstance(n,ast.Import):\n            for a in n.names: imported.append((a.asname or a.name.split('.')[0],n.lineno))\n        elif isinstance(n,ast.ImportFrom):\n            for a in n.names:\n                if a.name!='*': imported.append((a.asname or a.name,n.lineno))\n    names={n.id for n in ast.walk(tree) if isinstance(n,ast.Name)}\n    # also attribute bases\n    for n in ast.walk(tree):\n        if isinstance(n,ast.Attribute):\n            cur=n\n            while isinstance(cur,ast.Attribute): cur=cur.value\n            if isinstance(cur,ast.Name): names.add(cur.id)\n    unused=[(name,line) for name,line in imported if name not"
+    },
+    {
+      "line": 676,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 687,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 708,
+      "command": "Get-ChildItem dissect\\regf\\*.py,tests\\test_recovery.py,examples\\recover_hive.py,tests\\_data\\recovery\\build_fixtures.py | ForEach-Object { $i=0; Get-Content $_.FullName | ForEach-Object { $i++; if($_ -match '[ \\t]+$'){ \"$($_.FullName):$i\" } } }"
+    },
+    {
+      "line": 713,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 761,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 774,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 781,
+      "command": "python -m pytest -q"
+    },
+    {
+      "line": 791,
+      "command": "rg -n \"^def test_modern|^def test_trailing|^def test_truncated_entry|^def test_duplicate|^def test_missing|^def test_old|^def test_cell_reference|^def test_short_reads|^def test_non_seekable|^def test_exception|^def test_structure\" tests/test_recovery.py; rg -n \"^def generate|^def build_hive\" tests/_data/recovery/build_fixtures.py"
+    }
+  ],
+  "facts": [
+    {
+      "fact": "Foreign log base file name only adds pairing_notes and leaves paired True",
+      "file": "dissect/regf/recovery.py",
+      "location": "_parse_log",
+      "independent_case": "foreign_name"
+    },
+    {
+      "fact": "Invalid log base block checksum only adds warning; valid primary header still permits replay",
+      "file": "dissect/regf/recovery.py",
+      "location": "_parse_log and _select_chain",
+      "independent_case": "invalid_header_checksum"
+    },
+    {
+      "fact": "New model tests omitted file-name mismatch and invalid log base-block checksum paths",
+      "file": "tests/test_recovery.py",
+      "comparison": "Covered HvLE entry tamper but not corrupt base-block checksum"
+    }
+  ]
+}

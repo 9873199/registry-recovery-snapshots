@@ -1,0 +1,12 @@
+{
+  "uid": 12842,
+  "score": 3,
+  "feedback": "两份日志能按序号重排，短读、冲突序号和引用环也有对应处理。不过把日志头里的名字改成 SOFTWARE，主文件仍是 NTUSER.DAT，恢复结果还是 paired=true；把两份日志头校验值破坏后，也只记警告就发布了恢复视图。_parse_log 没把这些矛盾转成配对失败，新增测试没覆盖这两条路径。恢复链能跑，但不能据此确认日志属于这份原始证据，取证前还得补上这层校验。",
+  "reviewer": "Codex (AI-assisted)",
+  "model_test_replay": "31 passed",
+  "independent_cases": "9 pass,2 fail",
+  "scope": "Bundled synthetic binary fixtures with independent header mutations and assertions. All caller streams remain open and hash-identical. No system hive or live registry is accessed.",
+  "defect_limit": "Contradictory base-block file names and invalid base-block checksum are still treated as paired/recovered; this does not prove all otherwise valid log chains are wrong.",
+  "original_product_unchanged": true,
+  "automatic_submission": false
+}
